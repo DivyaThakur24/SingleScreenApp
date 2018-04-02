@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SingleScreenApp</string>
+    <string name="app_name">SportsClub</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">About Us</string>
     <string name="title_notifications">Contact Us</string>
