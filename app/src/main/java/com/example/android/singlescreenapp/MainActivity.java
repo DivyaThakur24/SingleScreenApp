@@ -10,48 +10,43 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+       FragmentManager fragmentManager;
+
 
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loadFragment(new HomeFragment());
-
         setContentView(R.layout.activity_main);
+
+        if(savedInstanceState == null){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content,new HomeFragment()).commit();
+        }
+
+
 
         //getting bottom navigation view and attaching the listener
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
     }
 
-    private boolean loadFragment(android.support.v4.app.Fragment fragment){
-        if(fragment != null){
-
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .commit();
-            return true;
-        }
-        else
-            return false;
-    }
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            Fragment fragment = null;
+            fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();                
 
             switch(item.getItemId()){
 
                 case R.id.navigation_home:
-                    fragment = new HomeFragment();
+                    fragmentTransaction.replace(R.id.content,new HomeFragment()).commit();
                     break;
                 case R.id.navigation_dashboard:
-                    fragment = new DashboardFragment();
+                    fragmentTransaction.replace(R.id.content,new DashboardFragment()).commit();                            
                     break;
                 case R.id.navigation_notifications:
-                    fragment = new NotificationsFragment();
+                    // do similarly        
                     break;
 
             }
